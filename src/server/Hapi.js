@@ -1,8 +1,9 @@
 import hapi from 'hapi';
 
 class HapiServer {
-  constructor(settings) {
+  constructor(settings, occurrenceController) {
     this.settings = settings;
+    this.occurrenceController = occurrenceController;
   }
 
   async start() {
@@ -20,6 +21,11 @@ class HapiServer {
         method: 'GET',
         path: '/healthcheck',
         handler: this.healthCheckHandler.bind(this),
+      },
+      {
+        method: 'POST',
+        path: '/occurrence',
+        handler: this.occurrenceController.create.bind(this.occurrenceController),
       },
     ];
 
